@@ -7,6 +7,6 @@ terraform {
   }
 }
 provider "aws" {
-  profile ="default"
-  region = "ca-central-1"
+  profile ="githubuser"
+  region = "us-east-1"
 }
