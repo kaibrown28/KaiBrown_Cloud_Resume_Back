@@ -1,7 +1,7 @@
-resource "aws_lambda_function" "myfunc" {
+resource "aws_lambda_function" "GetVisitorCount" {
   filename         = data.archive_file.zip_the_python_code.output_path
   source_code_hash = data.archive_file.zip_the_python_code.output_base64sha256
-  function_name    = "GetSiteVisitorViews"
+  function_name    = "GetSiteVisitors"
   role             = aws_iam_role.iam_for_lambda.arn
   handler          = "func.handler"
   runtime          = "python3.8"
@@ -61,7 +61,7 @@ resource "aws_iam_policy" "iam_policy_for_portfolio_project" {
 
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
   role = aws_iam_role.iam_for_lambda.name
-  policy_arn = aws_iam_policy.iam_policy_for_resume_project.arn
+  policy_arn = aws_iam_policy.iam_policy_for_portfolio_project.arn
   
 }
 
@@ -72,7 +72,7 @@ data "archive_file" "zip_the_python_code" {
 }
 
 resource "aws_lambda_function_url" "url1" {
-  function_name      = aws_lambda_function.myfunc.function_name
+  function_name      = "GetVisitorCount"
   authorization_type = "NONE"
 
   cors {
